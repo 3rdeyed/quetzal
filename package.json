@@ -2,9 +2,9 @@
     "name": "Quetzal",
     "main": "server.js",
     "dependencies": {
-        "express": "~4.0.0",
+        "express": "latest",
         "request": "latest",
         "cheerio": "latest",
-        "ejs": "^1.0.0"
+        "ejs": "latest"
     }
 }

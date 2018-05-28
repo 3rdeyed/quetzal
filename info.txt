@@ -1,7 +1,12 @@
+::: QUETZAL webserver :::
+
+created 25/5 in San Cristobal, Chiapas by 3rdEyeVisionsCode
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
 [nodemon]
 
 npm install -g nodemon
-
 nodemon --ignore db/db.json -- ignore DB changes
-
-nodemon server

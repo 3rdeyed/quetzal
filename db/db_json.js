@@ -1,4 +1,4 @@
-var fs		= require('fs');
+var fs		= require('fs');		// files system to read/write on our db
 
 /*
  * first test database in variable
@@ -19,10 +19,16 @@ var fs		= require('fs');
 			},
 }; */
 
-var dbFile = 'db/db.json';
+var dbFile = 'db/db.json';		// db file
+
+/*
+ * read database
+ */
 var db = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
 
-
+/*
+ * logging
+ */
 var DB_DEBUG = true;
 
 var log = function(msg) {
@@ -39,16 +45,6 @@ var saveDB = function() {
 	log('database saved to file');
 };
 
-function countProps(obj) {
-    var count = 0;
-
-    for(var prop in obj) {
-        if(obj.hasOwnProperty(prop))
-            ++count;
-    }
-
-    return count;
-}
 
 /*
  * module functions
@@ -136,6 +132,10 @@ module.exports = {
 	}
 };
 
+/***********
+ * HELPERS
+ **********/
+
 /*
  * generate unique id (source: google)
  */ 
@@ -152,3 +152,17 @@ var genId = function(count, k) {
     else
     	genId(count, k);  // otherwise, recurse on generate
 };
+
+/*
+ * count properties of an object
+ */
+function countProps(obj) {
+    var count = 0;
+
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            ++count;
+    }
+
+    return count;
+}
