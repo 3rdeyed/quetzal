@@ -1,0 +1,7 @@
+[nodemon]
+
+npm install -g nodemon
+
+nodemon --ignore db/db.json -- ignore DB changes
+
+nodemon server
