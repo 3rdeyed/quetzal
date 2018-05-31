@@ -1,10 +1,17 @@
 {
-    "name": "Quetzal",
-    "main": "server.js",
-    "dependencies": {
-        "express": "latest",
-        "request": "latest",
-        "cheerio": "latest",
-        "ejs": "latest"
-    }
+  "name": "Quetzal",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cheerio": "latest",
+    "ejs": "latest",
+    "express": "latest",
+    "moment": "^2.22.1",
+    "moment-timezone": "^0.5.17",
+    "mongoose": "^5.0.11",
+    "request": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
 }

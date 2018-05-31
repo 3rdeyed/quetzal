@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5, user-scalable=1, minimum-scale=1.0, maximum-scale=1.0">
+  <link type="text/css" href="css/style.css" rel="stylesheet" />
+  <script type="text/javascript" src="script/jquery.min.js"></script>
+  
+  <script>
+  
+    $(document).ready(function() {
+      $('.fresh').on("keydown", function(e) {
+        if($(this).hasClass('fresh'))
+        {
+            $(this).removeClass('fresh')
+            $(this).text('')
+        }
+      })
+    })
+    
+  </script>
+  
+  <title>Quetzalito bolando...!</title>
+</head>
+<body>
+
+  <section class='container'>
+    <form method="post" action="/notes" novalidate>
+      <div class="form-field">
+        <div id='input-container'>
+          <textarea class="input fresh" id="content" name="content"
+                     rows="2" autofocus>estoy pensando a...</textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn" type="submit">Sube!</button>
+      </div>
+    </form>
+    
+  </section>
+  
+  <section class='container items'>
+    <% for (item in vars.notes) { var itm = vars.notes[item] %>
+    
+      <!--div class='note'-->
+        <span class='note'>
+          <!--%= (itm.name) ? itm.name : 'nada' %-->
+          <%= itm.content %>
+        </span>
+      <!--/div-->
+    <% } %>
+  </section>
+  
+</body>
+</html>

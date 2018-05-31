@@ -1,0 +1,61 @@
+body {
+  font-family: 'calibri';
+}
+
+.container {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.form-field {
+  background-image: url('../images/cloud-bw.svg');
+  background-repeat: no-repeat;
+}
+#input-container {
+  width: 200px;
+  height: 70px;
+  margin: 0px;
+  padding-top: 77px;
+}
+#input-container textarea {
+  resize: none;
+  border: 0;
+  outline: none;
+  border-radius: 13px;
+  margin-left: 20px;
+  width: 160px;
+  font-size: 14px;
+}
+#input-container textarea.fresh {
+  color: #c1c1c1;
+}
+.btn {
+  border: 0;
+  background: #ceffce;
+  box-shadow: none;
+  border-radius: 15px;
+  padding: 9px 30px;
+  margin-left: 54px;
+}
+.btn:hover {
+  background: #aeffae;
+  cursor: pointer;
+}
+
+.items {
+  margin-top: 20px;
+}
+.items .note span:hover {
+/*   background-color: #CCC; */
+/*   border: 1px solid white; */
+}
+
+.items .note {
+  /* background-color: #3b611e; */
+  border-radius: 14px;
+  margin: 2px 0;
+  padding: 3px 10px;
+  display: inline-block;
+  /* color: white; */
+  border: 1px solid #efe8e8;
+}

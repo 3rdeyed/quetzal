@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="200"
+   height="133"
+   viewBox="0 0 200.00001 132.99999"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="cloud.svg">
+  <title
+     id="title7895">Nube - gracias https://github.com/fabianalexisinostroza/Antu</title>
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2"
+     inkscape:cx="99.619973"
+     inkscape:cy="66.5"
+     inkscape:document-units="px"
+     inkscape:current-layer="g5853"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid7897"
+       empspacing="4"
+       originx="-167.01509"
+       originy="26.130773" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Antu icon Theme</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-167.01508,-207.78076)">
+    <g
+       id="g5853"
+       transform="translate(40.000001,-12.000005)">
+      <path
+         id="rect5228-2"
+         d="m 243.45626,222.53012 c -22.15018,0 -40.84189,14.1019 -47.7514,33.8343 -4.28966,-3.34014 -9.67219,-5.34749 -15.55445,-5.34749 -14.02859,0 -25.32235,11.2935 -25.32235,25.32169 0,0.56944 0.0503,1.12694 0.0861,1.68777 -14.75959,4.64025 -25.4089,18.38174 -25.4089,34.71218 0,19.63143 15.39757,35.4906 34.81824,36.3195 v 0.0839 h 1.58265 121.86377 v -0.0839 c 0.52854,0.0252 1.04847,0.0839 1.58265,0.0839 20.16609,0 36.40088,-16.23432 36.40088,-36.39995 0,-18.61253 -13.83918,-33.84408 -31.82605,-36.08456 0.0778,-1.15449 0.17311,-2.30535 0.17311,-3.48051 0,-28.05649 -22.58751,-50.64333 -50.64467,-50.64333 z"
+         style="opacity:1;fill:#ffffff;fill-opacity:0.5;stroke:#000000;stroke-width:1.93942833;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>
