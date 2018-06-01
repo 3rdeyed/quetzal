@@ -6,7 +6,9 @@ const moment     = require('moment-timezone');       // date & time
 const app		= express();
 
 /////////////////
-const fs		= require('fs');
+//const fs		= require('fs');
+
+const port	= process.env.PORT || 8080; //3000; // 443
 
 /*
  * MODELS 
@@ -55,15 +57,8 @@ mongoose.connect(dbConfig.url)
 });
 
 
-var port	= process.env.PORT || 8080;
 
 
-app.get('/x', function(req, res){
-  var html = "<!DOCTYPE html>\n<html>\n    <head>\n    </head>\n <body>\n      <h1>Hello World!</h1>\n   </body>\n</html>";
-
-  res.render(html);
-});
-  
 /*
  * root - index
  */
@@ -109,66 +104,6 @@ app.get('/print', function(req, res){
     });
 });
 
-/*
- * return database content as json
- *
-app.get('/json', function(req, res){
-	logGet(req, res);
-	var data = db.fetchAll();
-	res.json(data);
-});
-*/
-
-/*
- * add json item to database
- *
-app.get('/put', function(req, res){
-	logGet(req, res);
-	
-	db.push(req.query, function(id) {
-		res.redirect('/');
-	});
-});
-*/
-
-/*
- * update an existing item in the DB
- * 
- * params: id, key, value
- *
-app.get('/set', function(req, res){
-	logGet(req, res);
-	
-	db.set(req.query.id, req.query.key, req.query.value);
-	
-	res.redirect('/');
-});
-*/
-
-/*
- * remove an existing item from DB
- * or
- * remove all items whose key equals value
- * 
- * params: id | key, value
- *
-app.get('/remove', function(req, res){
-	logGet(req, res);
-	
-	var id = req.query.id;
-	
-	if(id !== undefined)
-		db.remove(req.query.id);
-	else {
-		var key = req.query.key;
-		var value = req.query.value;
-		// debug logging
-		console.log('key: ' +key+ ', value: ' +value);
-		db.remove(key, value);
-	}
-	res.redirect('/');
-});
-*/
 
 // Require Notes routes
 require('./app/routes/note.routes.js')(app);

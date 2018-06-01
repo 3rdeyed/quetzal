@@ -65,6 +65,12 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
+  <defs> 
+  <linearGradient id="lgrad" x1="66%" y1="100%" x2="34%" y2="0%" > 
+    <stop offset="0%" style="stop-color:rgb(222,222,211);stop-opacity:1" />
+    <stop offset="100%" style="stop-color:rgb(255,255,255);stop-opacity:1" />
+    </linearGradient> 
+  </defs>
   <g
      inkscape:label="Capa 1"
      inkscape:groupmode="layer"
@@ -76,7 +82,7 @@
       <path
          id="rect5228-2"
          d="m 243.45626,222.53012 c -22.15018,0 -40.84189,14.1019 -47.7514,33.8343 -4.28966,-3.34014 -9.67219,-5.34749 -15.55445,-5.34749 -14.02859,0 -25.32235,11.2935 -25.32235,25.32169 0,0.56944 0.0503,1.12694 0.0861,1.68777 -14.75959,4.64025 -25.4089,18.38174 -25.4089,34.71218 0,19.63143 15.39757,35.4906 34.81824,36.3195 v 0.0839 h 1.58265 121.86377 v -0.0839 c 0.52854,0.0252 1.04847,0.0839 1.58265,0.0839 20.16609,0 36.40088,-16.23432 36.40088,-36.39995 0,-18.61253 -13.83918,-33.84408 -31.82605,-36.08456 0.0778,-1.15449 0.17311,-2.30535 0.17311,-3.48051 0,-28.05649 -22.58751,-50.64333 -50.64467,-50.64333 z"
-         style="opacity:1;fill:#ffffff;fill-opacity:0.5;stroke:#000000;stroke-width:1.93942833;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="opacity:1;fill:url(#lgrad);fill-opacity:1.0;stroke:#dfdfdf;stroke-width:1.93942833;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          inkscape:connector-curvature="0" />
     </g>
   </g>

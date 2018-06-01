@@ -1,33 +1,46 @@
 body {
-  font-family: 'calibri';
+  font-family: 'Calibri', 'helvetica neue', 'Helvetica', 'Arial', 'liberation sans', 'sans-serif';
+  margin: 0px; padding: 9px;
+}
+body.night {
+  background: #212121;
 }
 
 .container {
-  width: 300px;
+  width: 333px;
   margin: 0 auto;
 }
 
-.form-field {
+.nube-crear-nota {
   background-image: url('../images/cloud-bw.svg');
   background-repeat: no-repeat;
+  width: 200px;
+  margin: 0 auto;
 }
 #input-container {
   width: 200px;
   height: 70px;
   margin: 0px;
-  padding-top: 77px;
+  padding-top: 70px;
 }
 #input-container textarea {
   resize: none;
+  background: transparent;
   border: 0;
   outline: none;
   border-radius: 13px;
-  margin-left: 20px;
+  margin-left: 13px;
+  padding: 7px;
   width: 160px;
   font-size: 14px;
+  text-align: center;
 }
 #input-container textarea.fresh {
-  color: #c1c1c1;
+  color: #9c9c9c;
+  font-style: italic;
+}
+.form-actions {
+  text-align: center;
 }
 .btn {
   border: 0;
@@ -35,15 +48,22 @@ body {
   box-shadow: none;
   border-radius: 15px;
   padding: 9px 30px;
-  margin-left: 54px;
 }
 .btn:hover {
   background: #aeffae;
   cursor: pointer;
 }
+.night .btn {
+  color: #adadad;
+  background: #333e21;
+}
+.night .btn:hover {
+  background: #2c4e31;
+}
 
 .items {
   margin-top: 20px;
+  text-align: center;
 }
 .items .note span:hover {
 /*   background-color: #CCC; */
@@ -58,4 +78,10 @@ body {
   display: inline-block;
   /* color: white; */
   border: 1px solid #efe8e8;
+}
+
+body.night .items .note {
+  color: #b8c39d;
+  border: 1px solid #3a3a3a;
+  background: #2d2d2d;
 }

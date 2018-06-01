@@ -15,6 +15,8 @@
         {
             $(this).removeClass('fresh')
             $(this).text('')
+            $('.input-add .btn:input[type="submit"]')
+              .prop('disabled', false);
         }
       })
     })
@@ -23,18 +25,18 @@
   
   <title>Quetzalito bolando...!</title>
 </head>
-<body>
+<body class='night'>
 
-  <section class='container'>
+  <section class='container input-add'>
     <form method="post" action="/notes" novalidate>
-      <div class="form-field">
+      <div class="form-field nube-crear-nota">
         <div id='input-container'>
           <textarea class="input fresh" id="content" name="content"
                      rows="2" autofocus>estoy pensando a...</textarea>
         </div>
       </div>
       <div class="form-actions">
-        <button class="btn" type="submit">Sube!</button>
+        <button disabled class="btn" type="submit">Sube!</button>
       </div>
     </form>
     
