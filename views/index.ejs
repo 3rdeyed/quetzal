@@ -11,12 +11,75 @@
   
     $(document).ready(function() {
       $('.fresh').on("keydown", function(e) {
+        console.log('KEYDOWN')
         if($(this).hasClass('fresh'))
         {
             $(this).removeClass('fresh')
             $(this).text('')
-            $('.input-add .btn:input[type="submit"]')
-              .prop('disabled', false);
+            $(this).val('')
+            
+            //$('.input-add .btn:input[type="submit"]')
+            $(this).closest("form").find('.btn:input[type="submit"]')
+              .prop('disabled', false)
+        }
+      })
+      
+      $('.note').click(function() {
+        var eNote = $(this);
+        // note is selected? -> unselect
+        if( $(this).hasClass('selected') ) {
+          
+          // unselect element
+          
+          $(this).removeClass('selected');
+          
+          // remove hidden field from cloud link buttons
+          
+          $('#move-to-cloud form input[value=' +eNote.attr('noteId')+ ']').remove()
+          
+          // no more notes selected? -> switch to see-clouds
+          if($('.note.selected').length == 0) {
+            $('#see-clouds').show();
+            $('#move-to-cloud').hide();
+          }
+        } else {
+          
+          // select one note
+          
+          if($('.note.selected').length == 0) {
+            $('#see-clouds').hide();
+            $('#move-to-cloud').show();
+          }
+          $(this).addClass('selected');
+          
+          // iterate over buttons' forms and add fields
+          
+          $('#move-to-cloud form').each(function(i,e) {
+            //var eNoteId = $('<input type="hidden" name="noteIds[]" value="' +
+            //              eNote.attr('noteId') + '" />');
+            
+            var eField = $('<input type="hidden"' +
+                             'name="noteIds[]" ' +
+                             'value="' + eNote.attr('noteId') +
+                           '">')
+            
+            $(this).prepend( eField )
+            
+            console.log('>>> ' + i)
+            console.log('>>> ' + $(this).html())
+          })
+          /**/
+        }
+        
+        // are notes selected?
+        if($('.note.selected').length > 0) {
+            $('#see-clouds').hide();
+            $('#move-to-cloud').show();
+        } else {
+          $('.clouds .cloud').each(function(i,e) {
+            $('#see-clouds').show();
+            $('#move-to-cloud').hide();
+          })
         }
       })
     })
@@ -25,11 +88,46 @@
   
   <title>Quetzalito bolando...!</title>
 </head>
+
 <body class='night'>
 
+  <section class='container nav'>
+    <a href='/'>ROOT</a>
+  </section>
+  <section class='container input-add-nube'>
+    <form method="post" action="/clouds" novalidate>
+      <div class="form-field crear-nube">
+        <div id='input-container-add-cloud'>
+          <input class="input fresh" id="input-nube" name="name" value='crear nube...'></textarea>
+          <div class="form-actions">
+            <button disabled class="btn" type="submit">Crea!</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section id='see-clouds' class='container items clouds'>
+    <% for (i in vars.clouds) { var c = vars.clouds[i] %>
+      <a href='/show?cloudId=<%= c._id %>' cloudName='<%= c.name %>' ' class="item cloud">
+        <%= c.name %>
+      </a>
+    <% } %>
+  </section>
+  
+  <section id='move-to-cloud' class='container items clouds' hidden='hidden'>
+    <% for (i in vars.clouds) { var c = vars.clouds[i] %>
+    
+      <form method="post" action="/move" novalidate>
+        <input type="hidden" name="cloudFrom" value="<%= vars.cloudId %>" />
+        <input type="hidden" name="cloudTo" value="<%= c._id %>" />
+        <button class="btn" type="submit"><%= c.name %></button>
+      </form>
+    <% } %>
+  </section>
   <section class='container input-add'>
     <form method="post" action="/notes" novalidate>
-      <div class="form-field nube-crear-nota">
+      <div class="form-field nube-crear-nota fade-in">
         <div id='input-container'>
           <textarea class="input fresh" id="content" name="content"
                      rows="2" autofocus>estoy pensando a...</textarea>
@@ -42,11 +140,11 @@
     
   </section>
   
-  <section class='container items'>
+  <section class='container items notes'>
     <% for (item in vars.notes) { var itm = vars.notes[item] %>
     
       <!--div class='note'-->
-        <span class='note'>
+        <span class='item note' noteId='<%= itm._id %>'>
           <!--%= (itm.name) ? itm.name : 'nada' %-->
           <%= itm.content %>
         </span>

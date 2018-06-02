@@ -5,9 +5,6 @@ const moment     = require('moment-timezone');       // date & time
 
 const app		= express();
 
-/////////////////
-//const fs		= require('fs');
-
 const port	= process.env.PORT || 8080; //3000; // 443
 
 /*
@@ -15,11 +12,13 @@ const port	= process.env.PORT || 8080; //3000; // 443
  */
 
 const Note = require('./app/models/note.model.js');
+const Cloud = require('./app/models/cloud.model.js');
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(require('connect').bodyParser);
 // parse requests of content-type - application/json
-app.use(bodyParser.json());
+app.use( bodyParser.json());
 
 
 app.set('view engine', 'ejs');
@@ -58,26 +57,41 @@ mongoose.connect(dbConfig.url)
 
 
 
+/*app.post('*', (res, req) => {
+  console.log('POST')
+  console.log('body: ', req.body)
+  console.log('query: ', req.query)
+  res.json({a:'POST'});
+})
+app.get('*', (res, req) => {
+  console.log('GET');
+  console.log('body: ', req.body)
+  console.log('query: ', req.query)
+  res.send('gotcha!')
+  res.json({a:'GET'});
+})*/
+
 
 /*
  * root - index
- */
+ *
 app.get('/', function(req, res){
-  var t0 = Date.now();
+  var t0 = Date.now()
   
-  Note.find()
-    .then(notes => {
-      //var strData = JSON.stringify(notes);
-      //console.log('>>>' + strData);
-    
+  Cloud.find().then(clouds => {
+    Note.find().then(notes => {
       console.log('(' + (Date.now() - t0) + 'ms)');
-    
+
       res.render('index', {
         vars: {
+          clouds: clouds,
           notes: notes
-        } });
-  });
-});
+        }
+      })
+    })
+  })
+})*/
+
 
 /*
  * print out database content
@@ -106,7 +120,7 @@ app.get('/print', function(req, res){
 
 
 // Require Notes routes
-require('./app/routes/note.routes.js')(app);
+require('./app/routes/routes.js')(app);
 
 /*
  * gets called once the server is up

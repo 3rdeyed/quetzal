@@ -116,3 +116,8 @@ exports.delete = (req, res) => {
         });
     });
 };
+
+/*exports.move = (req, res) => {
+  var cloudName = req.body.cloudName;
+  var noteIds = req.body.cloud
+}*/

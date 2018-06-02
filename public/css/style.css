@@ -4,6 +4,17 @@ body {
 }
 body.night {
   background: #212121;
+  color: #777;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  color: white !important;
+}
+a:visited {
+  color: inherit;
 }
 
 .container {
@@ -16,6 +27,14 @@ body.night {
   background-repeat: no-repeat;
   width: 200px;
   margin: 0 auto;
+}
+#input-container-add-cloud {
+  text-align: center;
+}
+#input-container-add-cloud .input {
+  margin-bottom: 10px;
+  border-radius: 10px;
+  text-align: center;
 }
 #input-container {
   width: 200px;
@@ -35,10 +54,12 @@ body.night {
   font-size: 14px;
   text-align: center;
 }
-#input-container textarea.fresh {
+
+.fresh {
   color: #9c9c9c;
   font-style: italic;
 }
+
 .form-actions {
   text-align: center;
 }
@@ -63,14 +84,15 @@ body.night {
 
 .items {
   margin-top: 20px;
+  margin-bottom: 20px;
   text-align: center;
 }
-.items .note span:hover {
+.items .item span:hover {
 /*   background-color: #CCC; */
 /*   border: 1px solid white; */
 }
 
-.items .note {
+.items .item {
   /* background-color: #3b611e; */
   border-radius: 14px;
   margin: 2px 0;
@@ -80,8 +102,23 @@ body.night {
   border: 1px solid #efe8e8;
 }
 
-body.night .items .note {
+body.night .items .item {
   color: #b8c39d;
   border: 1px solid #3a3a3a;
   background: #2d2d2d;
+}
+.items .item.selected {
+  border-color: red !important;
+}
+
+
+
+
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; }}
+.fade-in {
+  opacity: 0;
+  animation: fadeIn ease-in 1;
+  animation-fill-mode: forwards;
+  animation-duration: 0.9s;
+  animation-delay: 0s;
 }
