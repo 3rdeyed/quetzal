@@ -19,17 +19,30 @@ module.exports = (app) => {
     *** DEBUG END
     **/
   
-    // Retrieve all Clouds and it's Notes
+    // retrieve all clouds and it's notes
     app.get('/', clouds.show)
-  
     // retrieve all clouds and notes of [cloudId]
     app.get('/show', clouds.show)
+    // move notes to cloud
+    app.post('/move', clouds.move)
+    // show all clouds and their notes
+    app.get('/clouds', clouds.showAll)
+    // create a new cloud
+    app.post('/clouds', clouds.create);
   
-    // Create a new Note
+  
+    // create a new note
     app.post('/notes', notes.create)
   
-    // Move notes to cloud
-    app.post('/move', clouds.move)
+    /*
+     * HELPERS
+     */
+  
+    // app.get('/removeNotes', clouds._removeNotes)
+    
+    // remove a cloud by id
+    app.get('/clouds/remove', clouds.remove)
+  
   
     /**
   
@@ -47,9 +60,6 @@ module.exports = (app) => {
     app.delete('/notes/:noteId', notes.delete);
 
   
-    // Create a new Cloud
-    app.post('/clouds', clouds.create);
-
     // Retrieve all Clouds
     app.get('/clouds', clouds.findAll);
   

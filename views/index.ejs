@@ -6,85 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.5, user-scalable=1, minimum-scale=1.0, maximum-scale=1.0">
   <link type="text/css" href="css/style.css" rel="stylesheet" />
   <script type="text/javascript" src="script/jquery.min.js"></script>
-  
-  <script>
-  
-    $(document).ready(function() {
-      $('.fresh').on("keydown", function(e) {
-        console.log('KEYDOWN')
-        if($(this).hasClass('fresh'))
-        {
-            $(this).removeClass('fresh')
-            $(this).text('')
-            $(this).val('')
-            
-            //$('.input-add .btn:input[type="submit"]')
-            $(this).closest("form").find('.btn:input[type="submit"]')
-              .prop('disabled', false)
-        }
-      })
-      
-      $('.note').click(function() {
-        var eNote = $(this);
-        // note is selected? -> unselect
-        if( $(this).hasClass('selected') ) {
-          
-          // unselect element
-          
-          $(this).removeClass('selected');
-          
-          // remove hidden field from cloud link buttons
-          
-          $('#move-to-cloud form input[value=' +eNote.attr('noteId')+ ']').remove()
-          
-          // no more notes selected? -> switch to see-clouds
-          if($('.note.selected').length == 0) {
-            $('#see-clouds').show();
-            $('#move-to-cloud').hide();
-          }
-        } else {
-          
-          // select one note
-          
-          if($('.note.selected').length == 0) {
-            $('#see-clouds').hide();
-            $('#move-to-cloud').show();
-          }
-          $(this).addClass('selected');
-          
-          // iterate over buttons' forms and add fields
-          
-          $('#move-to-cloud form').each(function(i,e) {
-            //var eNoteId = $('<input type="hidden" name="noteIds[]" value="' +
-            //              eNote.attr('noteId') + '" />');
-            
-            var eField = $('<input type="hidden"' +
-                             'name="noteIds[]" ' +
-                             'value="' + eNote.attr('noteId') +
-                           '">')
-            
-            $(this).prepend( eField )
-            
-            console.log('>>> ' + i)
-            console.log('>>> ' + $(this).html())
-          })
-          /**/
-        }
-        
-        // are notes selected?
-        if($('.note.selected').length > 0) {
-            $('#see-clouds').hide();
-            $('#move-to-cloud').show();
-        } else {
-          $('.clouds .cloud').each(function(i,e) {
-            $('#see-clouds').show();
-            $('#move-to-cloud').hide();
-          })
-        }
-      })
-    })
-    
-  </script>
+  <script type="text/javascript" src="script/script.js"></script>
   
   <title>Quetzalito bolando...!</title>
 </head>
@@ -92,7 +14,8 @@
 <body class='night'>
 
   <section class='container nav'>
-    <a href='/'>ROOT</a>
+    <a href='/'>&nbsp/&nbsp</a>
+    <a href='/clouds'>/clouds</a>
   </section>
   <section class='container input-add-nube'>
     <form method="post" action="/clouds" novalidate>
@@ -109,7 +32,15 @@
 
   <section id='see-clouds' class='container items clouds'>
     <% for (i in vars.clouds) { var c = vars.clouds[i] %>
-      <a href='/show?cloudId=<%= c._id %>' cloudName='<%= c.name %>' ' class="item cloud">
+      <%
+         // check if this cloud is currently showed
+         var isCurrent = (typeof vars.cloudId !== 'undefined') &&
+                       (c._id.toString() == vars.cloudId.toString())
+      %>
+      <a href='/show?cloudId=<%= c._id %>' cloudId='<%= c._id %>'
+         class="item cloud<% if(isCurrent == true) { %>
+                current
+                <%}%>")>
         <%= c.name %>
       </a>
     <% } %>
@@ -139,18 +70,49 @@
     </form>
     
   </section>
-  
-  <section class='container items notes'>
-    <% for (item in vars.notes) { var itm = vars.notes[item] %>
+              
+  <%if (vars.notes !== undefined) {%>
     
-      <!--div class='note'-->
-        <span class='item note' noteId='<%= itm._id %>'>
-          <!--%= (itm.name) ? itm.name : 'nada' %-->
-          <%= itm.content %>
-        </span>
-      <!--/div-->
-    <% } %>
-  </section>
+    <!-- / :: show all notes  -->
+
+    <section class='container items notes'>
+      <div class='notes'>
+        <% 
+          for (i = 0; i < vars.notes.length; i++) {
+            var itm = vars.notes[i]
+            %>
+
+            <span class='item note<%= itm.clouded ? " clouded" : "" %>' noteId='<%= itm._id %>'>
+              <%= itm.content %>
+            </span>
+        
+        <% } %>
+      </div>
+    </section>
   
+  <% } else { %>
+  
+    <!-- /clouds :: show all clouds and their notes  -->
+  
+    <section class='container items notes'>
+      <% for (i = 0; i < vars.clouds.length; i++) { var cloud = vars.clouds[i] %>
+
+        <div class='cloud'>
+          <div class='title'><%= cloud.name %></div>
+          <div class='notes'>
+
+            <% for (j = 0; j < cloud.items.length; j++) { var note = cloud.items[j] %>
+              <span class='item note' noteId='<%= note._id %>'>
+                <%= note.content %>
+              </span>
+            <% } %>
+
+          </div>
+        </div>
+
+      <% } %>
+    </section>
+  
+  <% } %>
 </body>
 </html>

@@ -1,6 +1,8 @@
 body {
   font-family: 'Calibri', 'helvetica neue', 'Helvetica', 'Arial', 'liberation sans', 'sans-serif';
-  margin: 0px; padding: 9px;
+  font-size: 16px;
+  margin: 0px; 6adding: 9px;
+  padding-top: 10px;
 }
 body.night {
   background: #212121;
@@ -20,6 +22,16 @@ a:visited {
 .container {
   width: 333px;
   margin: 0 auto;
+  text-align: center;
+}
+
+.nav {
+  margin-bottom: 30px;
+}
+.nav a {
+  background: #333;
+  border-radius: 10px;
+  padding: 2px 7px;
 }
 
 .nube-crear-nota {
@@ -28,13 +40,29 @@ a:visited {
   width: 200px;
   margin: 0 auto;
 }
+
+
+.clouds .cloud.current {
+  border: 1px solid #c0e66a !important;
+}
+
+
 #input-container-add-cloud {
   text-align: center;
 }
 #input-container-add-cloud .input {
   margin-bottom: 10px;
-  border-radius: 10px;
+  border-radius: 20px;
+  border: 1px solid #777;
   text-align: center;
+  width: 120px;
+  height: 30px;
+  background: #2d2c00;
+  font-size: 16px;
+  outline: none;
+}
+#input-container-add-cloud .input {
+  color: white;
 }
 #input-container {
   width: 200px;
@@ -55,8 +83,10 @@ a:visited {
   text-align: center;
 }
 
+#move-to-cloud form { display: inline-block; margin-bottom: 3px; }
+
 .fresh {
-  color: #9c9c9c;
+  color: #9c9c9c !important;
   font-style: italic;
 }
 
@@ -92,6 +122,14 @@ a:visited {
 /*   border: 1px solid white; */
 }
 
+
+.items .cloud .title {
+  margin: 13px 0px;
+  padding: 10px 0px;
+  font-size: 200%;
+}
+
+
 .items .item {
   /* background-color: #3b611e; */
   border-radius: 14px;
@@ -101,6 +139,9 @@ a:visited {
   /* color: white; */
   border: 1px solid #efe8e8;
 }
+.items .item:active {
+  background: #314213 !important;
+}
 
 body.night .items .item {
   color: #b8c39d;
@@ -108,10 +149,10 @@ body.night .items .item {
   background: #2d2d2d;
 }
 .items .item.selected {
-  border-color: red !important;
+  border-color: #dbcd34 !important;
 }
 
-
+.note.clouded { opacity: 0.2; font-size: 70% }
 
 
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; }}
@@ -119,6 +160,6 @@ body.night .items .item {
   opacity: 0;
   animation: fadeIn ease-in 1;
   animation-fill-mode: forwards;
-  animation-duration: 0.9s;
+  animation-duration: 1.5s;
   animation-delay: 0s;
 }
