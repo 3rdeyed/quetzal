@@ -59,7 +59,7 @@ exports.show = (req, res) => {
   // Validate request
   if (!cloudId) {
     return res.status(400).send({
-      message: "cloudId is missing." } )}
+      message: "clouds.show: cloudId is missing." } )}
   
   log('cloudId = ' + cloudId)
   
@@ -209,8 +209,8 @@ exports.move = (req, res) =>
     });
   }
   else {
-    logOut('redirect /show?cloudId=' + cloudFromId)
-    res.redirect('/show?cloudId=' + cloudFromId)
+    logOut('redirect /')
+    res.redirect('/')
   }
   
   /* -=-=-=- */

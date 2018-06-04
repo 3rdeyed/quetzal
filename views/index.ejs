@@ -19,7 +19,7 @@
     <a href='javascript:toggleDayNight()'>day/night</a>
   </section>
   
-  <section class='container create-cloud'>
+  <section id='create-cloud' class='container'>
     <form method="post" action="/clouds" novalidate>
       <div>
         <input class="input fresh" id="input-create-cloud" name="name" value='crear nube...'>
@@ -58,6 +58,7 @@
   
   <section class='container add-note'>
     <form method="post" action="/notes" novalidate>
+      <input type="hidden" name="cloudId" value="<%= vars.cloudId %>" />
       <div class="form-field nube-crear-nota fade-in">
         <div id='add-note-input-wrap'>
           <textarea class="input fresh" id="content" name="content"

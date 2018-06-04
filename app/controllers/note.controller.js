@@ -1,4 +1,5 @@
 const Note = require('../models/note.model.js');
+const Cloud = require('../models/cloud.model.js');
 
 // Create and Save a new Note
 exports.create = (req, res) => {
@@ -16,10 +17,31 @@ exports.create = (req, res) => {
     content: req.body.content
   });
 
+  /* DB QUERY */
+  
   // Save Note in the database
   note.save()
-    .then(data => {
-      res.redirect('/');
+    .then(n => {
+    
+      // if cloudId is given, put note into cloud
+      var cloudId = req.body.cloudId
+      if(cloudId) {
+        var nId = n._id
+        var conditions = { '_id': cloudId, 'items._id': { $ne: nId }}
+        var update = { $addToSet: { items: nId }}
+
+        Cloud.update(conditions, update, function() {
+          console.log('>> > inserted to cloud [' + cloudId + ']')
+        }).then(c => {
+          console.log('>> > insert: ' + c.n + ', modified: ' + c.nModified)
+          console.log('>> > redirect /show?cloudId=' + cloudId)
+          res.redirect('/show?cloudId=' + cloudId);
+        })
+      }
+      else {
+        res.redirect('/');
+      }
+    
     }).catch(err => {
       res.status(500).send({
         message: err.message || "Some error occurred while creating the Note."
