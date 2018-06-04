@@ -7,30 +7,23 @@ const app		= express();
 
 const port	= process.env.PORT || 8080; //3000; // 443
 
-/*
- * MODELS 
- */
-
-const Note = require('./app/models/note.model.js');
-const Cloud = require('./app/models/cloud.model.js');
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(require('connect').bodyParser);
 // parse requests of content-type - application/json
 app.use( bodyParser.json());
 
 
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));  // public folder
-app.use('/favicon.ico', express.static(__dirname + '/public/images/favicon.ico'));
-//app.engine('html', require('ejs').renderFile);
-//app.set('views', __dirname + '/views');
+app.use('/favicon.ico', express.static(__dirname + '/public/images/quetzal.ico'));
 
-
+/*
+ * LOGGING
+ */
 
 var myLogger = function (req, res, next) {
-  var zone = 'America/Mexico_city'; //moment.tz.guess()
+  var zone = 'America/Mexico_city';
   console.log('\n[' +
               moment().tz(zone).format('hh:mm:ss') +
               '] [REQUEST] ' + req.url);
@@ -39,6 +32,9 @@ var myLogger = function (req, res, next) {
 
 app.use(myLogger);
 
+/*
+ * DATABASE
+ */
 
 // Configuring the database
 const dbConfig = require('./config/database.config.js');
@@ -55,75 +51,15 @@ mongoose.connect(dbConfig.url)
     process.exit();
 });
 
-
-
-/*app.post('*', (res, req) => {
-  console.log('POST')
-  console.log('body: ', req.body)
-  console.log('query: ', req.query)
-  res.json({a:'POST'});
-})
-app.get('*', (res, req) => {
-  console.log('GET');
-  console.log('body: ', req.body)
-  console.log('query: ', req.query)
-  res.send('gotcha!')
-  res.json({a:'GET'});
-})*/
-
-
 /*
- * root - index
- *
-app.get('/', function(req, res){
-  var t0 = Date.now()
-  
-  Cloud.find().then(clouds => {
-    Note.find().then(notes => {
-      console.log('(' + (Date.now() - t0) + 'ms)');
-
-      res.render('index', {
-        vars: {
-          clouds: clouds,
-          notes: notes
-        }
-      })
-    })
-  })
-})*/
-
-
-/*
- * print out database content
+ * ROUTES
  */
-app.get('/print', function(req, res){
-	
-  Note.find()
-    .then(notes => {
-      var strData = JSON.stringify(notes);
 
-      // helper to replace all expressions in a strings
-      function replaceAll(str, find, replace) {
-          return str.replace(new RegExp(find, 'g'), replace); }
-
-      // add line breaks for better readability
-      strData = replaceAll(strData, ',"', ',<br>"');
-      strData = replaceAll(strData, ',{', ',<br><br>{');
-
-      res.send(strData);
-    }).catch(err => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving notes."
-      });
-    });
-});
-
-
-// Require Notes routes
+// Require routes
 require('./app/routes/routes.js')(app);
 
 /*
- * gets called once the server is up
+ * connect our server
  */
 app.listen(port, function() {
 	console.log('escuchando...');

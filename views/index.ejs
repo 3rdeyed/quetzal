@@ -16,17 +16,15 @@
   <section class='container nav'>
     <a href='/'>&nbsp/&nbsp</a>
     <a href='/clouds'>/clouds</a>
+    <a href='javascript:toggleDayNight()'>day/night</a>
   </section>
-  <section class='container input-add-nube'>
+  
+  <section class='container create-cloud'>
     <form method="post" action="/clouds" novalidate>
-      <div class="form-field crear-nube">
-        <div id='input-container-add-cloud'>
-          <input class="input fresh" id="input-nube" name="name" value='crear nube...'></textarea>
-          <div class="form-actions">
-            <button disabled class="btn" type="submit">Crea!</button>
-          </div>
-        </div>
+      <div>
+        <input class="input fresh" id="input-create-cloud" name="name" value='crear nube...'>
       </div>
+      <button disabled class="btn" type="submit">Crea!</button>
     </form>
   </section>
 
@@ -42,6 +40,7 @@
                 current
                 <%}%>")>
         <%= c.name %>
+        <span class='count'><%= c.items.length %></span>
       </a>
     <% } %>
   </section>
@@ -56,12 +55,13 @@
       </form>
     <% } %>
   </section>
-  <section class='container input-add'>
+  
+  <section class='container add-note'>
     <form method="post" action="/notes" novalidate>
       <div class="form-field nube-crear-nota fade-in">
-        <div id='input-container'>
+        <div id='add-note-input-wrap'>
           <textarea class="input fresh" id="content" name="content"
-                     rows="2" autofocus>estoy pensando a...</textarea>
+                     rows="2">estoy pensando a...</textarea>
         </div>
       </div>
       <div class="form-actions">

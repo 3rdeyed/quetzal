@@ -117,7 +117,26 @@ exports.delete = (req, res) => {
     });
 };
 
-/*exports.move = (req, res) => {
-  var cloudName = req.body.cloudName;
-  var noteIds = req.body.cloud
-}*/
+/*
+ * print out database content as text
+ */
+exports.print = (req, res) => {
+  Note.find()
+    .then(notes => {
+      var strData = JSON.stringify(notes);
+
+      // helper to replace all expressions in a strings
+      function replaceAll(str, find, replace) {
+          return str.replace(new RegExp(find, 'g'), replace); }
+
+      // add line breaks for better readability
+      strData = replaceAll(strData, ',"', ',<br>"');
+      strData = replaceAll(strData, ',{', ',<br><br>{');
+
+      res.send(strData);
+    }).catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving notes."
+      });
+    });
+}

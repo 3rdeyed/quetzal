@@ -9,19 +9,16 @@ const Note = require('../models/note.model.js');
 
 var log_t0 = null       // timestamp when entering log
 
-// start log
-
+  // start log
 var logIn = function(msg, req, res) {
   log_t0 = Date.now()
   console.log('(logIn cloud.controller) ' + msg) }
 
-// log something
-
+  // log something
 var log = function(msg, req, res) {
   console.log('(log   cloud.controller) ' + msg) }
 
-// end log
-
+  // end log
 var logOut = function(msg, req, res) {
   console.log('(cloud.controller reply [' +(Date.now() - log_t0)+ 'ms]) ' + msg) }
 
@@ -29,6 +26,8 @@ var logOut = function(msg, req, res) {
 
 /*
  *  show all clouds and their notes
+ *
+ *  render: clouds (populated)
  */
 
 exports.showAll = (req, res) => {
@@ -37,10 +36,9 @@ exports.showAll = (req, res) => {
   log('[QUERY] find all clouds...')
   
   Cloud.find().populate('items')     // Clound.find().then(clouds => {
-    .exec(function(err, clouds) {
-      if(err) {
-        res.status(500).send({ message: err.message ||
-          "Some DB error occurred while showing the clouds."
+    .exec((err, clouds) => {
+      if(err) { res.status(500).send({ message: err.message ||
+          "Some database error occurred while showing the clouds."
         })
       }
       
@@ -50,7 +48,7 @@ exports.showAll = (req, res) => {
 }
 
 /*
- * show one cloud and it's notes or ALL
+ * show one cloud
  */
 
 exports.show = (req, res) => {
@@ -58,74 +56,73 @@ exports.show = (req, res) => {
   
   var cloudId = req.query.cloudId
   
+  // Validate request
+  if (!cloudId) {
+    return res.status(400).send({
+      message: "cloudId is missing." } )}
+  
   log('cloudId = ' + cloudId)
   
   Cloud.find().then(clouds => {
-    if(cloudId) {
-      Cloud.findById(cloudId).then(c => {
-        log('cloud.show ITEMS: ' + JSON.stringify(c.items))
-        Note.find({ '_id': { $in: c.items }} ).then(notes => {
-          logOut('index')
-          res.render('index', {
-            vars: {
-              clouds: clouds,
-              notes: notes,
-              cloudId: cloudId
-            }
-          })
-        }).catch(err => {
-          res.status(500).send({
-          message: err.message || "Some error occurred while creating the Cloud."
-        })
-      })
-    })
-    } else {
-      log('-> show all clouds')
-      Note.find().then(notes => {
-        
-        var idsInCloud = []
-        
-        for(var c in clouds) {
-          var cld = clouds[c]
-          for(var i = 0; i < cld.items.length; i++) {
-            idsInCloud.push(cld.items[i])
-          }
-        }
-        
-        //console.log('ids in clouds: ' + idsInCloud)
-        
-        for(var n in notes) {
-          var note = notes[n]
-          //console.log('check note for cloudlessness: ' + note._id)
-          
-          var isInArray = function (id) {
-            for(var ii = 0; ii < idsInCloud.length; ii++) {
-              if(idsInCloud[ii].equals(id))
-                return true
-            }
-            return false
-          }
-          
-          // if note id does not appears in array of notes, mark as cloudless
-          if(isInArray(note._id)) {
-            //console.log(note._id + ' is clouded')
-            note.clouded = true
-          }
-        }
-        
-        
+    Cloud.findById(cloudId).then(c => {
+      
+      log('cloud.show ITEMS: ' + JSON.stringify(c.items))
+      
+      Note.find({ '_id': { $in: c.items }} ).then(notes => {
         logOut('index')
         res.render('index', {
           vars: {
             clouds: clouds,
-            notes: notes
+            notes: notes,
+            cloudId: cloudId
           }
         })
+      }).catch(err => {
+        res.status(500).send({ message: err.message ||
+          "Some error occurred while retrieving data."
       })
-      
-    }
+    })
+  })
+  
   })
 }
+
+/*
+ * show all notes
+ */
+
+exports.allNotes = (req, res) => {
+  logIn('allNotes')
+  
+  Cloud.find().then(clouds => {
+    Note.find().then(notes => {
+      
+      // collect IDs of all clouds' notes
+      var idsInCloud = []
+      for(var c in clouds) {
+        for(var i = 0; i < clouds[c].items.length; i++) {
+          idsInCloud.push(clouds[c].items[i]) } }
+
+      // iterate over all notes to check if they are in a cloud
+      for(var n in notes) {
+        var note = notes[n]
+        
+        var isInArray = function (id) {
+          for(var ii = 0; ii < idsInCloud.length; ii++) {
+            if(idsInCloud[ii].equals(id)) return true
+          } return false }
+
+        // if note id appears in array of notes, mark as clouded
+        if(isInArray(note._id))
+          note.clouded = true
+      }
+      
+      logOut('index')
+      res.render('index', {
+        vars: {
+          clouds: clouds,
+          notes: notes
+        } }) }) }) }
 
 /*
  * Create and Save a new Cloud
@@ -139,24 +136,24 @@ exports.create = (req, res) => {
   if (!req.body.name) {
     return res.status(400).send({
       message: "Cloud name can not be empty"
-    });
+    })
   }
 
   // Create a cloud
   const cloud = new Cloud({
     name: req.body.name || "Noname Cloud"
-  });
+  })
 
   // Save cloud in the database
   cloud.save()
     .then(data => {
-      res.redirect('/');
+      res.redirect('/')
     }).catch(err => {
       res.status(500).send({
         message: err.message || "Some error occurred while creating the Cloud."
-      });
-    });
-};
+      })
+    })
+}
 
 /*
  * move notes from one cloud to another

@@ -1,17 +1,24 @@
+// day / night toggle
+var toggleDayNight = () => {
+  $('body').toggleClass('night')
+}
+
 $(document).ready(function() {
-  $('.fresh').on("keydown paste", function(e) {
-    console.log('KEYDOWN or PASTE')
-    if($(this).hasClass('fresh'))
-    {
+  
+  // clear fresh input elements on focus
+  
+  $('.fresh').on("focus keydown paste", function(e) {
+    if($(this).hasClass('fresh')) {
         $(this).removeClass('fresh')
         $(this).text('')
         $(this).val('')
 
-        //$('.input-add .btn:input[type="submit"]')
         $(this).closest("form").find('.btn:input[type="submit"]')
           .prop('disabled', false)
     }
   })
+  
+  // note selection
 
   $('.note').click(function() {
     var eNote = $(this);
@@ -19,15 +26,13 @@ $(document).ready(function() {
     if( $(this).hasClass('selected') ) {
 
       // unselect element
-
       $(this).removeClass('selected');
 
       // remove hidden field from cloud link buttons
-
       $('#move-to-cloud form input[value=' +eNote.attr('noteId')+ ']').remove()
 
       // no more notes selected? -> switch to see-clouds
-      if($('.note.selected').length == 0) {
+      if($('.note.selected').length === 0) {
         $('#see-clouds').show();
         $('#move-to-cloud').hide();
       }
@@ -35,7 +40,7 @@ $(document).ready(function() {
 
       // select one note
 
-      if($('.note.selected').length == 0) {
+      if($('.note.selected').length === 0) {
         $('#see-clouds').hide();
         $('#move-to-cloud').show();
       }
@@ -43,10 +48,8 @@ $(document).ready(function() {
 
       // iterate over buttons' forms and add fields
 
-      $('#move-to-cloud form').each(function(i,e) {
-        //var eNoteId = $('<input type="hidden" name="noteIds[]" value="' +
-        //              eNote.attr('noteId') + '" />');
-
+      $('#move-to-cloud form').each(function(i,e)
+      {
         var eField = $('<input type="hidden"' +
                          'name="noteIds[]" ' +
                          'value="' + eNote.attr('noteId') +
@@ -54,10 +57,9 @@ $(document).ready(function() {
 
         $(this).prepend( eField )
 
-        console.log('>>> ' + i)
-        console.log('>>> ' + $(this).html())
+        //console.log('>>> ' + i)
+        //console.log('>>> ' + $(this).html())
       })
-      /**/
     }
 
     // are notes selected?

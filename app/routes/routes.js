@@ -3,11 +3,9 @@ module.exports = (app) => {
     const notes = require('../controllers/note.controller.js');
     const clouds = require('../controllers/cloud.controller.js');
 
-  
-  
-     /**
-     *** DEBUGGING
-     **/
+    /**
+    *** LOGGING
+    **/
   
     var log = function(req, res, msg) {
       console.log(msg)
@@ -16,11 +14,11 @@ module.exports = (app) => {
     }
   
     /**
-    *** DEBUG END
+    *** ROUTES
     **/
   
     // retrieve all clouds and it's notes
-    app.get('/', clouds.show)
+    app.get('/', clouds.allNotes)
     // retrieve all clouds and notes of [cloudId]
     app.get('/show', clouds.show)
     // move notes to cloud
@@ -38,15 +36,17 @@ module.exports = (app) => {
      * HELPERS
      */
   
-    // app.get('/removeNotes', clouds._removeNotes)
+    // print out all notes as text
+    app.get('/print', notes.print)
     
     // remove a cloud by id
     app.get('/clouds/remove', clouds.remove)
   
   
-    /**
-  
-
+    /*
+     * NOT NEEDED YET
+     *
+    
     // Retrieve all Notes
     app.get('/notes', notes.findAll);
 
@@ -58,13 +58,5 @@ module.exports = (app) => {
 
     // Delete a Note with noteId
     app.delete('/notes/:noteId', notes.delete);
-
-  
-    // Retrieve all Clouds
-    app.get('/clouds', clouds.findAll);
-  
-    
-    
-    
     /* */
 }
